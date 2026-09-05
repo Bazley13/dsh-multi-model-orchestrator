@@ -1,6 +1,6 @@
 {
   "name": "dsh-multi-model-orchestrator",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A DeepSeek Harness (dsh) plugin: orchestrates complex tasks across multiple models — a 'main brain' decomposes the task and dispatches subtasks to GLM / Kimi / Qwen etc. sub-agents by each model's strengths, with per-model token usage.",
   "type": "module",
   "main": "lib/index.js",
