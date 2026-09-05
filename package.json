@@ -56,7 +56,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/REPLACE_ME/dsh-multi-model-orchestrator.git"
+    "url": "git+https://github.com/Bazley13/dsh-multi-model-orchestrator.git"
   },
   "license": "MIT"
 }
