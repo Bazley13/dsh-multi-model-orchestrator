@@ -1,0 +1,13 @@
+# dsh-multi-model-orchestrator bundle patch (mount-only).
+#
+# This patch does NOT modify any @deepseek-ai harness internal entry.
+# It only inserts this plugin's own code line into the profile's layer
+# stack, so `dsh plugin --profile <name> add dsh-multi-model-orchestrator`
+# loads it as a live profile layer.
+#
+# Everything user-tunable (third-party model routes, sub-agent model
+# allow-list, model notes) is configured declaratively through
+# $DSH_HOME/settings.yaml — see examples/settings.yaml in this package.
+- insert:
+    - id: multi-model-orchestrator
+      name: dsh-multi-model-orchestrator
