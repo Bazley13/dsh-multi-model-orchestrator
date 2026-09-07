@@ -76,6 +76,8 @@ dsh plugin --profile web add github:YOU/dsh-multi-model-orchestrator
 3. 通过 `subagent`(带 `provider` / `model`)把每个子任务分派给最合适的模型——在同一条消息里一起启动相互独立的委托,默认后台运行;
 4. 汇总各子代理结果,合成最终交付。
 
+> **路由名以你 profile 实际注册的为准**——示例里的 GLM / Kimi / Qwen 只是示意。如果你注册的路由在其它 provider 名下(例如 `zai` 网关),请在 `subagent-model-selection` 与 `modelNotes` 里用那些确切的 `provider`/`model` id。可用 `list_subagent_models` 查看实时列表。
+
 查看用量:让主脑调用 `model_token_usage`,或直接问「各模型用了多少 token」。
 
 ## 配置参考
@@ -96,6 +98,7 @@ dsh plugin --profile web add github:YOU/dsh-multi-model-orchestrator
 - `model_token_usage` 需要自加载以来至少有一次模型调用返回了 `usage` 块,才会开始输出。
 - 编排指引为全局注入,子代理也会读到;其措辞保证子代理在聚焦单一子任务时不会递归拆解。
 - 第三方路由默认按「非推理模型」接入;如需推理开关(`reasoningEfforts` / `compat.thinkingFormat`),可在 Web「模型」页为具体模型补上。
+- **部分推理模型缺省参数会拒掉调用**:智谱 GLM-5.3 系即如此——默认参数分派会报错,显式加 `reasoning_effort`(如 `low`)后才响应。若某路由分派子代理报错而该模型本应可用,请给分派补上显式 `reasoning_effort`。请求在 API 层成功却始终 0 token 返回的路由,通常是路由/上游问题,而非编排器问题。
 
 ## 故障排查
 

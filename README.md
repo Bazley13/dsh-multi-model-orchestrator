@@ -76,6 +76,8 @@ Ask for a complex task in the main conversation. The main brain will:
 3. dispatch each subtask through `subagent` (with `provider` / `model`) to the best-fit model — launching independent delegations in one message, running them in the background by default;
 4. gather results and synthesize the final deliverable.
 
+> **Route names are whatever your profile actually registers** — the GLM / Kimi / Qwen names in the examples are illustrative. If you registered routes under other providers (e.g. a `zai` gateway), reference those exact `provider`/`model` ids in `subagent-model-selection` and `modelNotes`. Ask `list_subagent_models` for the live list.
+
 To see usage, ask the main brain to call `model_token_usage` (or just ask "how many tokens has each model used?").
 
 ## Configuration reference
@@ -96,6 +98,7 @@ To add your own vendor, extend `llm-pi-ai.providers` with `{ api, baseURL, apiKe
 - `model_token_usage` needs at least one model call that returned a `usage` chunk before it reports anything.
 - The orchestration guidance is injected globally, so sub-agents read it too; its wording keeps sub-agents from recursively re-decomposing their single focused subtask.
 - Third-party routes are registered as **non-reasoning** models by default; reasoning flags (`reasoningEfforts` / `compat.thinkingFormat`) can be added per model on the web **Models** page.
+- **Some reasoning models reject a call without an explicit reasoning tier.** Zhipu's GLM-5.3 line, for example, fails with default parameters and only responds when the sub-agent is dispatched with an explicit `reasoning_effort` (e.g. `low`). If a dispatched child errors on a model you expect to work, add an explicit `reasoning_effort` to the dispatch. A route that returns no tokens despite requests succeeding at the API level is usually a provider-side issue, not an orchestrator bug.
 
 ## Troubleshooting
 

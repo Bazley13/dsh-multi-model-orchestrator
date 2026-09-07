@@ -5,6 +5,13 @@
 # usually at ~/.dsh/settings.yaml) and restart the harness. Everything here is
 # ordinary harness configuration — no plugin patch is involved.
 #
+# ⚠️ The provider names below (glm / kimi / qwen) are ILLUSTRATIVE presets.
+# Your profile registers its own providers — e.g. deepseek-official and a
+# Zhipu "zai" gateway — so `subagent-model-selection.allowedModels` and
+# `multi-model-orchestrator.modelNotes` must use YOUR actual provider/model
+# ids, or the main brain can never match them. Call `list_subagent_models`
+# (or check the web "Models" page) for the live list.
+#
 # Three things are configured:
 #   1. `llm-pi-ai.providers`   — OpenAI-compatible third-party routes
 #                                (GLM / Kimi / Qwen). Fill the API keys and the
@@ -16,6 +23,9 @@
 #
 # API keys: set the env vars named by `apiKeyEnv`, or add them under
 # `$DSH_HOME/.credentials.yaml`, or paste them on the web "Models" page.
+#
+# Tip: some reasoning routes (Zhipu GLM-5.3 line) reject calls without an
+# explicit reasoning tier — dispatch those with a reasoning_effort such as low.
 
 # ── 1) Third-party OpenAI-compatible model routes ────────────────────────────
 llm-pi-ai:
